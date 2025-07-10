@@ -1,0 +1,21 @@
+package Shipping_System.Shipping_System.domin.repository;
+
+import Shipping_System.Shipping_System.data.model.UserModel;
+import Shipping_System.Shipping_System.domin.enitiy.Role;
+import Shipping_System.Shipping_System.domin.enitiy.User;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface UserRepository  {
+
+    Optional<UserModel> findByEmail(String email);
+
+    boolean existsByEmail(String email);
+
+    Optional<UserModel> findById(Long deliveryPersonId);
+     UserModel findByEmailNonOptional(String email) ;
+    List<UserModel> findByRole(Role role);
+}

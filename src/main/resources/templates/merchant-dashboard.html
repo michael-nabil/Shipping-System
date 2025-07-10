@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Merchant Dashboard</title>
+    <style>
+        body { font-family: Arial; padding: 30px; background: #f5f5f5; }
+        h1 { color: #2c3e50; }
+        .dashboard { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        ul { list-style: none; padding: 0; }
+        li { padding: 10px 0; }
+        a { text-decoration: none; color: #3498db; font-size: 18px; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="dashboard">
+    <h1>Welcome, <span th:text="${email}"></span> 👋</h1>
+    <p>This is your merchant dashboard. You can manage your products, check your orders, and view your sales performance.</p>
+
+    <ul>
+        <li><a th:href="@{/packages/add}">📦 Add New Package</a></li>
+        <li><a th:href="@{/packages/view}">📋 View All Packages</a></li>
+        <li><a th:href="@{/auth/logout}">🚪 Logout</a></li>
+    </ul>
+    </ul>
+</div>
+</body>
+</html>

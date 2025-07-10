@@ -1,0 +1,53 @@
+
+
+services:
+  mysql:
+    image: mysql:8.0.33
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password --wait_timeout=28800 --interactive_timeout=28800
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: shipping_system
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppassword
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -uroot -prootpassword || exit 1"]
+      interval: 5s
+      timeout: 20s
+      retries: 30
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: rootpassword
+
+  springboot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/shipping_system?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+
+volumes:
+  mysql_data:
+
+networks:
+  default:
+    driver: bridge

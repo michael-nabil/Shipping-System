@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Package</title>
+    <style>
+        body { font-family: Arial; background: #f9f9f9; padding: 30px; }
+        form { background: #fff; padding: 20px; border-radius: 10px; width: 400px; margin: auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        label { display: block; margin-top: 10px; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; }
+        button { margin-top: 15px; padding: 10px 15px; background: #27ae60; color: white; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+<nav style="background-color: #3498db; padding: 15px; color: white; display: flex; justify-content: space-between; align-items: center;">
+    <div style="font-size: 20px; font-weight: bold;">
+        🚚 Shipping System
+    </div>
+    <div>
+        <a th:href="@{/auth/logout}" style="color: white; text-decoration: none;">🚪 Logout</a>
+    </div>
+</nav>
+<h2 style="text-align:center;">✏️ Update Package</h2>
+<form th:action="@{/packages/update}" method="post">
+
+    <input type="hidden" name="id" th:value="${package.id}" />
+
+    <label>Size:</label>
+    <input type="text" name="size" th:value="${package.size}" required />
+
+    <label>Weight (kg):</label>
+    <input type="number" name="weight" step="0.1" th:value="${package.weight}" required />
+
+    <label>Pickup Address:</label>
+    <input type="text" name="pickupAddress" th:value="${package.pickupAddress}" required />
+
+    <label>Delivery Address:</label>
+    <input type="text" name="deliveryAddress" th:value="${package.deliveryAddress}" required />
+
+    <button type="submit">Update Package</button>
+</form>
+
+</body>
+</html>
